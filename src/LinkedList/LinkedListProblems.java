@@ -1,7 +1,5 @@
 package LinkedList;
 
-import java.util.LinkedList;
-import java.util.List;
 //Definition for singly-linked list.
 class ListNode {
     int val;
@@ -15,20 +13,42 @@ public class LinkedListProblems {
     public static void main(String[] args) {
         ListNode node = new ListNode(1);
         node.next = new ListNode(2);
-        node.next.next = new ListNode(3);
-        node.next.next.next = new ListNode(4);
-        node.next.next.next.next = new ListNode(5);
-        ListNode newNode = reverseSingleLinkedList_Recursive(node);
-        System.out.println(printNode(newNode));
+        node.next.next = new ListNode(4);
+        ListNode node2 = new ListNode(1);
+        node2.next = new ListNode(3);
+        node2.next.next = new ListNode(4);
+        //ListNode newNode = reverseSingleLinkedList_Recursive(node);
+        //deleteNode(nodeToDelete);
+
+        System.out.println(printNode(mergeTwoLists(node, node2)));
+    }
+    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode dummyHead = new ListNode(0);
+        ListNode curr = dummyHead;
+        while (l1.next != null && l2.next != null) {
+            if (l1.val < l2.val) {
+                curr = l1;
+                curr.next = l1;
+                l1 = l1.next;
+            } else {
+                curr = l2;
+                dummyHead.next = curr;
+                l2 = l2.next;
+            }
+        }
+        return dummyHead.next;
+    }
+    public static void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
     }
     // reverse single linked list - recursively
     public static ListNode reverseSingleLinkedList_Recursive(ListNode head) {
-        // head is null or last node or only one node
-        if(head == null || head.next == null) {
+        // head is null, or last node or only one node
+        if (head == null || head.next == null)
             return head;
-        }
 
-        // reverse the rest
+        // remember the new head
         ListNode newHeadNode = reverseSingleLinkedList_Recursive(head.next);
 
         // change references for middle chain
