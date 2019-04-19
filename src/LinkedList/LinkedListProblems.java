@@ -23,9 +23,15 @@ public class LinkedListProblems {
         System.out.println(printNode(mergeTwoLists(node, node2)));
     }
     public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        /* a dummy first node to
+        hang the result on */
         ListNode dummyHead = new ListNode(0);
+        /* tail points to the
+        last result node */
         ListNode curr = dummyHead;
         while (true) {
+            /* if either list runs out,
+            use the other list */
             if (l1 == null) {
                 curr.next = l2;
                 break;
@@ -34,6 +40,11 @@ public class LinkedListProblems {
                 curr.next = l1;
                 break;
             }
+             /* Compare the data of the two
+            lists whichever lists' data is
+            smaller, append it into tail and
+            advance the head to the next Node
+            */
             if (l1.val <= l2.val) {
                 curr.next = l1;
                 l1 = l1.next;
@@ -41,6 +52,7 @@ public class LinkedListProblems {
                 curr.next = l2;
                 l2 = l2.next;
             }
+            /* Advance the tail */
             curr = curr.next;
         }
         return dummyHead.next;
