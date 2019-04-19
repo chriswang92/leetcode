@@ -25,16 +25,23 @@ public class LinkedListProblems {
     public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         ListNode dummyHead = new ListNode(0);
         ListNode curr = dummyHead;
-        while (l1.next != null && l2.next != null) {
-            if (l1.val < l2.val) {
-                curr = l1;
+        while (true) {
+            if (l1 == null) {
+                curr.next = l2;
+                break;
+            }
+            if (l2 == null) {
+                curr.next = l1;
+                break;
+            }
+            if (l1.val <= l2.val) {
                 curr.next = l1;
                 l1 = l1.next;
             } else {
-                curr = l2;
-                dummyHead.next = curr;
+                curr.next = l2;
                 l2 = l2.next;
             }
+            curr = curr.next;
         }
         return dummyHead.next;
     }
