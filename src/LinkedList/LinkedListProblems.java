@@ -8,6 +8,15 @@ class ListNode {
         val = x;
     }
 }
+
+/* Link list node */
+class Node
+{
+    int data;
+    Node next;
+    Node(int d) {data = d;
+        next = null;}
+}
 public class LinkedListProblems {
 
     public static void main(String[] args) {
@@ -25,18 +34,70 @@ public class LinkedListProblems {
     public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         ListNode dummyHead = new ListNode(0);
         ListNode curr = dummyHead;
-        while (l1.next != null && l2.next != null) {
-            if (l1.val < l2.val) {
-                curr = l1;
+        while (true) {
+            if (l1 == null) {
+                curr.next = l2;
+                break;
+            }
+            if (l2 == null) {
+                curr.next = l1;
+                break;
+            }
+            if (l1.val <= l2.val) {
                 curr.next = l1;
                 l1 = l1.next;
             } else {
-                curr = l2;
-                dummyHead.next = curr;
+                curr.next = l2;
                 l2 = l2.next;
             }
+            curr = curr.next;
         }
         return dummyHead.next;
+    }
+    static ListNode merge2(ListNode headA, ListNode headB) {
+           /* a dummy first node to
+       hang the result on */
+        ListNode dummyNode = new ListNode(0);
+
+    /* tail points to the
+    last result node */
+        ListNode tail = dummyNode;
+        while(true)
+        {
+
+        /* if either list runs out,
+        use the other list */
+            if(headA == null)
+            {
+                tail.next = headB;
+                break;
+            }
+            if(headB == null)
+            {
+                tail.next = headA;
+                break;
+            }
+
+        /* Compare the data of the two
+        lists whichever lists' data is
+        smaller, append it into tail and
+        advance the head to the next Node
+        */
+            if(headA.val <= headB.val)
+            {
+                tail.next = headA;
+                headA = headA.next;
+            }
+            else
+            {
+                tail.next = headB;
+                headB = headB.next;
+            }
+
+            /* Advance the tail */
+            tail = tail.next;
+        }
+        return dummyNode.next;
     }
     public static void deleteNode(ListNode node) {
         node.val = node.next.val;
