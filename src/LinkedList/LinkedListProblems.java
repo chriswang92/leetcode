@@ -8,15 +8,6 @@ class ListNode {
         val = x;
     }
 }
-
-/* Link list node */
-class Node
-{
-    int data;
-    Node next;
-    Node(int d) {data = d;
-        next = null;}
-}
 public class LinkedListProblems {
 
     public static void main(String[] args) {
@@ -53,51 +44,6 @@ public class LinkedListProblems {
             curr = curr.next;
         }
         return dummyHead.next;
-    }
-    static ListNode merge2(ListNode headA, ListNode headB) {
-           /* a dummy first node to
-       hang the result on */
-        ListNode dummyNode = new ListNode(0);
-
-    /* tail points to the
-    last result node */
-        ListNode tail = dummyNode;
-        while(true)
-        {
-
-        /* if either list runs out,
-        use the other list */
-            if(headA == null)
-            {
-                tail.next = headB;
-                break;
-            }
-            if(headB == null)
-            {
-                tail.next = headA;
-                break;
-            }
-
-        /* Compare the data of the two
-        lists whichever lists' data is
-        smaller, append it into tail and
-        advance the head to the next Node
-        */
-            if(headA.val <= headB.val)
-            {
-                tail.next = headA;
-                headA = headA.next;
-            }
-            else
-            {
-                tail.next = headB;
-                headB = headB.next;
-            }
-
-            /* Advance the tail */
-            tail = tail.next;
-        }
-        return dummyNode.next;
     }
     public static void deleteNode(ListNode node) {
         node.val = node.next.val;
