@@ -1,5 +1,9 @@
 package LinkedList;
 
+import org.w3c.dom.NodeList;
+
+import java.util.HashSet;
+
 //Definition for singly-linked list.
 class ListNode {
     int val;
@@ -20,7 +24,31 @@ public class LinkedListProblems {
         //ListNode newNode = reverseSingleLinkedList_Recursive(node);
         //deleteNode(nodeToDelete);
 
-        System.out.println(printNode(mergeTwoLists(node, node2)));
+        System.out.println(printNode(mergeTwoLists_recursion(node, node2)));
+    }
+    public static boolean hasCycle(ListNode head) {
+        HashSet<ListNode> set = new HashSet<>();
+        while (head != null) {
+            if (!set.contains(head)) {
+                set.add(head);
+            } else {
+                return true;
+            }
+            head = head.next;
+        }
+        return false;
+    }
+    public static ListNode mergeTwoLists_recursion(ListNode l1, ListNode l2) {
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
+
+        if (l1.val <= l2.val) {
+            l1.next = mergeTwoLists_recursion(l1.next, l2);
+            return l1;
+        } else {
+            l2.next = mergeTwoLists_recursion(l1, l2.next);
+            return l2;
+        }
     }
     public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         /* a dummy first node to
