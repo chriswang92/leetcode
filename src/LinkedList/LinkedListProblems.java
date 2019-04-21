@@ -1,7 +1,5 @@
 package LinkedList;
 
-import org.w3c.dom.NodeList;
-
 import java.util.HashSet;
 
 //Definition for singly-linked list.
@@ -18,14 +16,31 @@ public class LinkedListProblems {
         ListNode node = new ListNode(1);
         node.next = new ListNode(2);
         node.next.next = new ListNode(4);
+        node.next.next.next = new ListNode(5);
+        node.next.next.next.next = node.next;
         ListNode node2 = new ListNode(1);
         node2.next = new ListNode(3);
         node2.next.next = new ListNode(4);
         //ListNode newNode = reverseSingleLinkedList_Recursive(node);
         //deleteNode(nodeToDelete);
 
-        System.out.println(printNode(mergeTwoLists_recursion(node, node2)));
+        //System.out.println(printNode(mergeTwoLists_recursion(node, node2)));
+        hasCycle2(node);
     }
+    // hasCycle by two pointers
+    public static boolean hasCycle2(ListNode head) {
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+    // hasCycle by hashset
     public static boolean hasCycle(ListNode head) {
         HashSet<ListNode> set = new HashSet<>();
         while (head != null) {
