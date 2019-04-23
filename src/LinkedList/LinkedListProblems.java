@@ -14,18 +14,166 @@ public class LinkedListProblems {
 
     public static void main(String[] args) {
         ListNode node = new ListNode(1);
-        node.next = new ListNode(2);
-        node.next.next = new ListNode(4);
-        node.next.next.next = new ListNode(5);
-        node.next.next.next.next = node.next;
+        node.next = new ListNode(0);
+        node.next.next = new ListNode(0);
+        /*
+        node.next.next.next = new ListNode(3);
+        node.next.next.next.next = new ListNode(3);
+        node.next.next.next.next.next = new ListNode(1);
+        */
         ListNode node2 = new ListNode(1);
         node2.next = new ListNode(3);
         node2.next.next = new ListNode(4);
         //ListNode newNode = reverseSingleLinkedList_Recursive(node);
         //deleteNode(nodeToDelete);
-
         //System.out.println(printNode(mergeTwoLists_recursion(node, node2)));
-        hasCycle2(node);
+        //hasCycle2(node);
+        System.out.println(isPalindrome2(node));
+    }
+
+    /* Function to check if given linked list is
+      palindrome or not */
+    static ListNode head;  // head of list
+    static ListNode slow_ptr, fast_ptr,second_half;
+    static boolean isPalindrome2(ListNode head)
+    {
+        slow_ptr = head; fast_ptr = head;
+        ListNode prev_of_slow_ptr = head;
+        ListNode midnode = null;  // To handle odd size list
+        boolean res = true; // initialize result
+
+        if (head != null && head.next != null)
+        {
+            /* Get the middle of the list. Move slow_ptr by 1
+               and fast_ptrr by 2, slow_ptr will have the middle
+               node */
+            while (fast_ptr != null && fast_ptr.next != null)
+            {
+                fast_ptr = fast_ptr.next.next;
+
+                /*We need previous of the slow_ptr for
+                  linked lists  with odd elements */
+                prev_of_slow_ptr = slow_ptr;
+                slow_ptr = slow_ptr.next;
+            }
+
+            /* fast_ptr would become NULL when there are even elements
+               in the list and not NULL for odd elements. We need to skip
+               the middle node for odd case and store it somewhere so that
+               we can restore the original list */
+            if (fast_ptr != null)
+            {
+                midnode = slow_ptr;
+                slow_ptr = slow_ptr.next;
+            }
+
+            // Now reverse the second half and compare it with first half
+            second_half = slow_ptr;
+            prev_of_slow_ptr.next = null; // NULL terminate first half
+            reverse();  // Reverse the second half
+            res = compareLists2(head, second_half); // compare
+
+            /* Construct the original list back */
+            reverse(); // Reverse the second half again
+
+            if (midnode != null)
+            {
+                // If there was a mid node (odd size case) which
+                // was not part of either first half or second half.
+                prev_of_slow_ptr.next = midnode;
+                midnode.next = second_half;
+            } else
+                prev_of_slow_ptr.next = second_half;
+        }
+        return res;
+    }
+
+    /* Function to reverse the linked list  Note that this
+       function may change the head */
+    static void reverse()
+    {
+        ListNode prev = null;
+        ListNode current = second_half;
+        ListNode next;
+        while (current != null)
+        {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        second_half = prev;
+    }
+
+    /* Function to check if two input lists have same data*/
+    static boolean compareLists2(ListNode head1, ListNode head2)
+    {
+        ListNode temp1 = head1;
+        ListNode temp2 = head2;
+
+        while (temp1 != null && temp2 != null)
+        {
+            if (temp1.val == temp2.val)
+            {
+                temp1 = temp1.next;
+                temp2 = temp2.next;
+            } else
+                return false;
+        }
+
+        /* Both are empty reurn 1*/
+        if (temp1 == null && temp2 == null)
+            return true;
+
+        /* Will reach here when one is NULL
+           and other is not */
+        return false;
+    }
+
+    public static boolean isPalindrome(ListNode head) {
+        boolean res = true;
+        if (head != null && head.next != null) {
+            // start
+            /* Get the middle of the list. Move slow_ptr by 1
+               and fast_ptrr by 2, slow_ptr will have the middle
+               node */
+            ListNode slow = head, fast = head, prev_of_slow = head, midNode = null, secondHalfHead = null;
+            while (fast != null && fast.next != null) {
+                fast = fast.next.next;
+                prev_of_slow = slow;
+                slow = slow.next;
+            }
+            /* fast pointer would become NULL when there are even elements in the list, and NOT NULL for odd elements.
+               We need to skip the middle node for odd case and store it somewhere so that we can restore the original
+               list
+            * */
+            if (fast != null) {
+                midNode = slow;
+                slow = slow.next;
+            }
+
+            // Now reverse the second half and compare it with the first half
+            secondHalfHead = slow;
+            prev_of_slow.next = null; // NULL terminate first half
+            ListNode newHead = reverseSingleLinkedList_Recursive(secondHalfHead);
+            res = compareLists(head, newHead);
+        }
+        return res;
+    }
+    static boolean compareLists(ListNode head1, ListNode head2) {
+        // compare each element in both list
+        while (head1 != null && head2 != null) {
+            if (head1.val != head2.val)
+                return false;
+            head1 = head1.next;
+            head2 = head2.next;
+        }
+        // both reach end of list
+        if (head1 == null && head2 == null) {
+            return true;
+        }
+        // will reach here when one reaches end of list and the other does not
+        return false;
     }
     // hasCycle by two pointers
     public static boolean hasCycle2(ListNode head) {
