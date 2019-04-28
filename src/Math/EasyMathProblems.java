@@ -5,8 +5,48 @@ import java.util.*;
 public class EasyMathProblems {
 
     public static void main(String[] args) {
-        System.out.println(romanToInt("MDCXCV"));
+        //System.out.println(romanToInt("MDCXCV"));
+        //System.out.println(titleToNumber2("BBA") == 54*26+1);
+        System.out.println(isPowerOfThree(45));
     }
+
+    /*
+    326. Power of Three
+    NOTE:One int that is power of int b must be mod by another int that is power of the same int b
+     */
+    public static boolean isPowerOfThree(int n) {
+        // 1162261467 is 3^19,  3^20 is bigger than int
+        int max = (int)Math.pow(3,19);
+        return n>0 && (max % n==0);
+    }
+    public static boolean isPowerOfThree2(int n) {
+        double div = n;
+        while (div > 0) {
+            if (div == 1.0)
+                return true;
+            div /= 3.0;
+        }
+        return false;
+    }
+    /*
+    171. Excel Sheet Column Number
+     */
+    public static int titleToNumber(String s) {
+        return s.chars().reduce(0, (r, ch) -> r * 26 + (ch - 'A' + 1));
+    }
+    public static int titleToNumber3(String s) {
+        int result = 0;
+        for (int i = 0; i < s.length(); result = result * 26 + (s.charAt(i) - 'A' + 1), i++);
+        return result;
+    }
+    public static int titleToNumber2(String s) {
+        int res = 0;
+        for (int i = 0; i < s.length(); i++) {
+            res = res * 26 + (s.charAt(i) - 'A' + 1);
+        }
+        return res;
+    }
+
     /* 13. Roman to Integer
     Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
     Symbol       Value
