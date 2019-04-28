@@ -2,7 +2,7 @@ package HashTable;
 
 import java.util.HashSet;
 
-public class HashTableProblems {
+public class EasyHashTableProblems {
     public static void main(String[] args) {
         //System.out.println(isHappy(20));
         System.out.println(countPrimes(499979));//499979
