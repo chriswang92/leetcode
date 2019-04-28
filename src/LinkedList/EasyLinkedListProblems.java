@@ -1,6 +1,7 @@
 package LinkedList;
 
 import java.util.HashSet;
+import java.util.*;
 
 //Definition for singly-linked list.
 class ListNode {
@@ -10,27 +11,70 @@ class ListNode {
         val = x;
     }
 }
-public class LinkedListProblems {
+public class EasyLinkedListProblems {
 
     public static void main(String[] args) {
+        ListNode commonNode = new ListNode(33);
+        commonNode.next = new ListNode(22);
+        commonNode.next.next = new ListNode(11);
         ListNode node = new ListNode(1);
-        node.next = new ListNode(0);
-        node.next.next = new ListNode(0);
+        node.next = new ListNode(2);
+        node.next.next = new ListNode(3);
+        //node.next.next.next = commonNode;
         /*
         node.next.next.next = new ListNode(3);
         node.next.next.next.next = new ListNode(3);
         node.next.next.next.next.next = new ListNode(1);
         */
-        ListNode node2 = new ListNode(1);
-        node2.next = new ListNode(3);
-        node2.next.next = new ListNode(4);
+        ListNode node2 = new ListNode(4);
+        node2.next = new ListNode(5);
+        node2.next.next = new ListNode(6);
+        node2.next.next.next = new ListNode(7);
+        //node2.next.next.next = commonNode;
         //ListNode newNode = reverseSingleLinkedList_Recursive(node);
         //deleteNode(nodeToDelete);
         //System.out.println(printNode(mergeTwoLists_recursion(node, node2)));
         //hasCycle2(node);
-        System.out.println(isPalindrome2(node));
+        //System.out.println(isPalindrome2(node));
+        System.out.println(printNode(getIntersectionNode(node, node2)));
     }
+    public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        //boundary check
+        if(headA == null || headB == null) return null;
 
+        ListNode a = headA;
+        ListNode b = headB;
+
+        //if a & b have different len, then we will stop the loop after second iteration
+        // the 2+ iterations will finally end with either both null or same Node to break the loop
+        while( a != b){
+            //for the end of first iteration, we just reset the pointer to the head of another linkedlist
+            a = a == null? headB : a.next;
+            b = b == null? headA : b.next;
+        }
+
+        return a;
+    }
+    public static ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
+        List<Integer> l1 = new LinkedList<>(), l2 = new LinkedList<>();;
+        List<ListNode> nodeList1 = new LinkedList<>();
+        ListNode curr = headA, res = null;
+        while (curr != null) {
+            l1.add(curr.val);
+            nodeList1.add(curr);
+            curr = curr.next;
+        }
+        curr = headB;
+        while (curr != null) {
+            if (nodeList1.contains(curr)) {
+                res = curr;
+                break;
+            }
+            curr = curr.next;
+        }
+
+        return res;
+    }
     /* Function to check if given linked list is
       palindrome or not */
     static ListNode head;  // head of list
@@ -282,6 +326,8 @@ public class LinkedListProblems {
 
     }
     static String printNode(ListNode head) {
+        if(head == null)
+            return "null node";
         String ret = "" + head.val;
         while (head.next != null) {
             head = head.next;
