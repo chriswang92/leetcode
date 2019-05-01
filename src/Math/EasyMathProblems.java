@@ -1,5 +1,6 @@
 package Math;
 
+import java.math.BigInteger;
 import java.util.*;
 
 public class EasyMathProblems {
@@ -7,9 +8,47 @@ public class EasyMathProblems {
     public static void main(String[] args) {
         //System.out.println(romanToInt("MDCXCV"));
         //System.out.println(titleToNumber2("BBA") == 54*26+1);
-        System.out.println(isPowerOfThree(45));
+        //System.out.println(isPowerOfThree(45));
+        //System.out.println(trailingZeroes(10));
+        System.out.println(reverse(1534236469));
     }
-
+    /* 7. Reverse Integer */
+    public static int reverse(int x) {
+        if (x==0) return 0;
+        StringBuilder sb = new StringBuilder();
+        if (x < 0) {
+            sb.append('-');
+            x = -x;
+        }
+        while (x > 0) {
+            int mod = x % 10;
+            sb.append(mod);
+            x = x / 10;
+        }
+        int result;
+        try{
+            result = Integer.parseInt(sb.toString());
+            return result;
+        }catch(Exception e){
+            return 0;
+        }
+    }
+    /*69. Sqrt(x) */
+    public static int mySqrt(int x) {
+        double y = (double)x;
+        return (int) Math.sqrt(y);
+    }
+    /*
+    172. Factorial Trailing Zeroes
+     */
+    public static int trailingZeroes(int n) {
+        int r = 0;
+        while (n > 0) {
+            n /= 5;
+            r += n;
+        }
+        return r;
+    }
     /*
     326. Power of Three
     NOTE:One int that is power of int b must be mod by another int that is power of the same int b
