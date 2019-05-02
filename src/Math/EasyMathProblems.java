@@ -10,7 +10,7 @@ public class EasyMathProblems {
         //System.out.println(titleToNumber2("BBA") == 54*26+1);
         //System.out.println(isPowerOfThree(45));
         //System.out.println(trailingZeroes(10));
-        System.out.println(reverse(1534236469));
+        System.out.println(reverse(3));
     }
     /* 7. Reverse Integer */
     public static int reverse(int x) {
