@@ -1,11 +1,6 @@
 package TwoPointers;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class EasyTwoPointersProblems {
     public static void main(String[] args) {
         //char[] s = new char[]{'H','e','l','l','o'};
