@@ -15,7 +15,7 @@ class TreeNode{
     TreeNode right;
     TreeNode(int x) { val = x; }
 }
-public class TreeProblems {
+public class EasyTreeProblems {
     public static void main(String[] args) {
         TreeNode node = new TreeNode(3);
         node.left = new TreeNode(9);

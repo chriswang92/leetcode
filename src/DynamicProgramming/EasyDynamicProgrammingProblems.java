@@ -2,7 +2,7 @@ package DynamicProgramming;
 
 import java.util.HashMap;
 
-public class DynamicProgrammingProblems {
+public class EasyDynamicProgrammingProblems {
     public static void main(String[] args) {
         System.out.println(rob(new int[]{4,1,2,7,5,3,1}));
     }
