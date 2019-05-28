@@ -27,20 +27,9 @@ public class HardDesignProblems {
  * int param_1 = obj.get(key);
  * obj.put(key,value);
  */
-class Node {
-    Node last;
-    Node next;
-    int key, val;
-    Node(int key, int val) {
-        this.key = key;
-        this.val = val;
-        last = null;
-        next = null;
-    }
-}
 class LRUCache {
-    private Deque<Node> queue;
-    private HashMap<Integer, Node> map;
+    private Deque<Integer> queue;
+    private HashMap<Integer, Integer> map;
     private int capacity;
     public LRUCache(int capacity) {
         queue = new LinkedList<>();
@@ -51,10 +40,9 @@ class LRUCache {
     public int get(int key) {
         int found = -1;
         if (map.containsKey(key)) {
-            Node nodeFound = map.get(key);
-            found = nodeFound.val;
+            found = map.get(key);
             // update queue
-            updateQueue(nodeFound);
+            updateQueue(key);
         }
         return found;
     }
@@ -62,29 +50,19 @@ class LRUCache {
     public void put(int key, int value) {
         if (map.size() >= capacity && !map.containsKey(key)) {
             // When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
-            int polledKey = queue.poll().key; // LRU key is always the head of queue
+            int polledKey = queue.poll(); // LRU key is always the head of queue
             map.remove(polledKey);
         }
-
-        Node oldNode = map.get(key);
-        Node newNode = oldNode == null ? new Node(key, value) : oldNode;
         // Allocate the newNode
-        updateQueue(newNode);
+        updateQueue(key);
 
         // Add the node into map/Update the node in map
-        if (oldNode == null) {
-            map.put(key, newNode);
-        } else {
-            oldNode.val = value;
-            map.put(key, oldNode);
-        }
+        map.put(key, value);
     }
 
     // update queue for each action: get, put
-    private void updateQueue(Node node) {
-        if (node != null) {
-            queue.remove(node);
-            queue.addLast(node);
-        }
+    private void updateQueue(int node) {
+        queue.remove(node);
+        queue.addLast(node);
     }
 }
