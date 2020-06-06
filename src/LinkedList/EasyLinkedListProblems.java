@@ -3,14 +3,6 @@ package LinkedList;
 import java.util.HashSet;
 import java.util.*;
 
-//Definition for singly-linked list.
-class ListNode {
-    int val;
-    ListNode next;
-    public ListNode(int x) {
-        val = x;
-    }
-}
 public class EasyLinkedListProblems {
 
     public static void main(String[] args) {
